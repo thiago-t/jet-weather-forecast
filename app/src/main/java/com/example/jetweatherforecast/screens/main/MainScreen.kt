@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.jetweatherforecast.data.DataOrException
 import com.example.jetweatherforecast.model.Weather
+import com.example.jetweatherforecast.navigation.WeatherScreens
 import com.example.jetweatherforecast.utils.formatDate
 import com.example.jetweatherforecast.utils.formatDecimals
 import com.example.jetweatherforecast.widgets.HumidityWindPressureRow
@@ -41,11 +42,15 @@ import com.example.jetweatherforecast.widgets.WeatherDetailRow
 import com.example.jetweatherforecast.widgets.WeatherStateImage
 
 @Composable
-fun MainScreen(navController: NavController, viewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(
+    navController: NavController,
+    viewModel: MainViewModel = hiltViewModel(),
+    city: String?
+) {
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(isLoading = true)
     ) {
-        value = viewModel.getWeatherData(city = "Moscow")
+        value = viewModel.getWeatherData(city = city.orEmpty())
     }.value
 
     if (weatherData.isLoading == true) {
@@ -64,7 +69,9 @@ fun MainScaffold(weather: Weather?, navController: NavController) {
                 title = "${weather?.city?.name}, ${weather?.city?.country}",
                 navController = navController,
                 elevation = 5.dp,
-                onAddAction = { /*TODO*/ }
+                onAddActionClicked = {
+                    navController.navigate(WeatherScreens.SearchScreen.name)
+                }
             ) {
                 navController.popBackStack()
             }

@@ -29,7 +29,7 @@ fun WeatherAppBar(
     isMainScreen: Boolean = true,
     elevation: Dp = 0.dp,
     navController: NavController,
-    onAddAction: () -> Unit,
+    onAddActionClicked: () -> Unit,
     onButtonClicked: () -> Unit
 ) {
 
@@ -43,7 +43,7 @@ fun WeatherAppBar(
         },
         actions = {
             if (isMainScreen) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onAddActionClicked.invoke() }) {
                     Icon(imageVector = Icons.Default.Search, contentDescription = "Search icon")
                 }
                 IconButton(onClick = { /*TODO*/ }) {
