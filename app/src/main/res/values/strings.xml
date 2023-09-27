@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JetWeatherForecast</string>
+    <string name="about_app">Weather app v1.0</string>
+    <string name="developed_by">Developed by: Thiago Toazza</string>
 </resources>
