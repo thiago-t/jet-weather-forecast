@@ -85,7 +85,7 @@ fun WeatherDetailRow(item: WeatherJson) {
 }
 
 @Composable
-fun HumidityWindPressureRow(weather: Weather) {
+fun HumidityWindPressureRow(weather: Weather, isImperial: Boolean) {
     Row(
         modifier = Modifier
             .padding(12.dp)
@@ -93,6 +93,8 @@ fun HumidityWindPressureRow(weather: Weather) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        val windSpeedUnit = if (isImperial) "mph" else "kph"
+
         Row(modifier = Modifier.padding(4.dp)) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_humidity),
@@ -117,7 +119,7 @@ fun HumidityWindPressureRow(weather: Weather) {
                 contentDescription = "Wind power icon",
                 modifier = Modifier.size(20.dp)
             )
-            Text(text = "${weather.list.first().humidity} mph")
+            Text(text = "${formatDecimals(weather.list.first().speed)} $windSpeedUnit")
         }
     }
 }

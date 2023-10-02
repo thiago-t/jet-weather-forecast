@@ -50,10 +50,9 @@ fun FavoritesScreen(
             }
         }
     ) {
-        it
         Surface(
             modifier = Modifier
-                .padding(5.dp)
+                .padding(it)
                 .fillMaxWidth()
         ) {
             Column(

@@ -11,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -39,8 +40,12 @@ class AppModule {
     @Provides
     @Singleton
     fun provideOpenWeatherApi(): WeatherApi {
+        val client = OkHttpClient.Builder()
+            .build()
+
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WeatherApi::class.java)
